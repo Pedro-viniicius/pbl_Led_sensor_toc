@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aula PBL - Slides</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="slide-shell">
+  <header class="slide-topbar">
+    <a href="index.html">Voltar ao início</a>
+    <div class="slide-controls" aria-label="Controles dos slides">
+      <button type="button" data-slide-prev aria-label="Slide anterior">‹</button>
+      <span class="slide-counter" data-slide-counter>1 / 1</span>
+      <button type="button" data-slide-next aria-label="Próximo slide">›</button>
+    </div>
+  </header>
+
+  <main class="slides">
+    <section class="slide active" data-title="PBL Sensor de Toque + LEDs Sequenciais">
+      <div>
+        <span class="badge">Aula prática de 1h30 a 2h</span>
+        <h1>PBL: Sensor de Toque + LEDs Sequenciais</h1>
+        <p>Desafio: construir um sistema embarcado em que o tempo de toque aumenta o nível de LEDs acesos.</p>
+        <div class="callout key">
+          <strong>Ao final da aula</strong>
+          O estudante deve conseguir explicar entrada, processamento, saída, variável, condição, repetição, estado, tensão, corrente, resistência e resistor no LED.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Situação-problema">
+      <div>
+        <h2>Situação-problema</h2>
+        <p>Um sistema embarcado é um pequeno computador dentro de um objeto maior. Ele lê sinais, toma decisões e controla alguma saída.</p>
+        <div class="slide-grid">
+          <div class="slide-card">Botão de elevador</div>
+          <div class="slide-card">Micro-ondas</div>
+          <div class="slide-card">Teclado</div>
+          <div class="slide-card">Painel de alarme</div>
+          <div class="slide-card">Lâmpada inteligente</div>
+        </div>
+        <div class="callout test">
+          <strong>Pausa para discussão</strong>
+          Onde há entrada, processamento e saída em cada exemplo?
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Desafio do projeto">
+      <div>
+        <h2>Desafio do projeto</h2>
+        <ul>
+          <li>Ao tocar no sensor, o primeiro LED acende.</li>
+          <li>Se o toque continua, os LEDs acendem em sequência.</li>
+          <li>Os LEDs funcionam como uma barra de nível.</li>
+          <li>Ao soltar o sensor, nesta versão, o nível volta para zero.</li>
+        </ul>
+        <div class="diagram">
+          <div class="circuit-row">
+            <span class="block sensor">Toque</span>
+            <span class="wire green"></span>
+            <span class="block">Decisão</span>
+            <span class="wire"></span>
+            <span class="block led">●</span>
+            <span class="block led">●</span>
+            <span class="block led">●</span>
+            <span class="block led">○</span>
+            <span class="block led">○</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Componentes">
+      <div>
+        <h2>Componentes</h2>
+        <div class="slide-grid small-text">
+          <div class="slide-card"><h3>Microcontrolador</h3><p>Pequeno computador que executa o programa.</p></div>
+          <div class="slide-card"><h3>Sensor de toque</h3><p>Entrada digital que muda de sinal quando tocamos.</p></div>
+          <div class="slide-card"><h3>LED</h3><p>Componente que emite luz quando passa corrente no sentido correto.</p></div>
+          <div class="slide-card"><h3>Resistor</h3><p>Componente que limita a corrente para proteger o LED.</p></div>
+          <div class="slide-card"><h3>Jumpers</h3><p>Fios usados para fazer conexões.</p></div>
+          <div class="slide-card"><h3>Protoboard</h3><p>Base para montar circuito sem solda.</p></div>
+          <div class="slide-card"><h3>Cabo USB</h3><p>Leva energia e envia o programa para a placa.</p></div>
+          <div class="slide-card"><h3>IDE Arduino</h3><p>Programa no computador usado para escrever e enviar o código.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Eletrônica básica">
+      <div>
+        <h2>Eletrônica básica</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><h3>Tensão</h3><p>Diferença de potencial elétrico. Ajuda a empurrar a corrente.</p></div>
+          <div class="slide-card"><h3>Corrente</h3><p>Fluxo de cargas elétricas passando pelo circuito.</p></div>
+          <div class="slide-card"><h3>Resistência</h3><p>Dificuldade para a corrente passar.</p></div>
+        </div>
+        <div class="callout warn">
+          <strong>Atenção</strong>
+          O LED precisa de resistor. Sem resistor, a corrente pode ficar alta demais e queimar o LED ou danificar a placa.
+        </div>
+        <p class="small-text">VCC é alimentação. GND é a referência comum do circuito. Sinal é a informação que entra ou sai por um pino.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Analogia da água">
+      <div>
+        <h2>Analogia da água</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><h3>Tensão</h3><p>Como a pressão da água.</p></div>
+          <div class="slide-card"><h3>Corrente</h3><p>Como a quantidade de água fluindo.</p></div>
+          <div class="slide-card"><h3>Resistência</h3><p>Como um cano mais estreito.</p></div>
+          <div class="slide-card"><h3>Resistor</h3><p>Limita o fluxo para o LED não receber corrente demais.</p></div>
+        </div>
+        <div class="callout key">
+          <strong>Conceito-chave</strong>
+          O resistor não é enfeite. Ele controla o quanto de corrente passa pelo LED.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Programação básica">
+      <div>
+        <h2>Programação básica</h2>
+        <p>Um programa é uma receita com instruções exatas. O computador não adivinha intenção: ele segue o que foi escrito.</p>
+        <div class="slide-grid">
+          <div class="slide-card"><h3>Entrada</h3><p>Informação que entra: sensor de toque.</p></div>
+          <div class="slide-card"><h3>Processamento</h3><p>Decisão feita pelo código: aumentar ou zerar o nível.</p></div>
+          <div class="slide-card"><h3>Saída</h3><p>Ação no mundo físico: acender LEDs.</p></div>
+        </div>
+        <p class="small-text">No Arduino, a função <code>loop()</code> repete para sempre enquanto a placa está ligada.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Variáveis">
+      <div>
+        <h2>Variáveis</h2>
+        <p>Uma variável é como uma caixa com etiqueta. Ela guarda um valor que o programa usa.</p>
+        <pre><code>int nivelAtual = 0;
+int estadoSensor = LOW;
+unsigned long ultimoTempo = 0;</code></pre>
+        <div class="callout key">
+          <strong>Exemplo no projeto</strong>
+          <code>nivelAtual</code> guarda quantos LEDs devem estar acesos neste momento.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Condições">
+      <div>
+        <h2>Condições</h2>
+        <p><code>if</code> significa “se”. <code>else</code> significa “senão”. É uma decisão.</p>
+        <pre><code>if (estadoSensor == HIGH) {
+  // sensor pressionado
+} else {
+  // sensor solto
+}</code></pre>
+        <div class="callout warn">
+          <strong>Erro comum</strong>
+          O computador não entende “mais ou menos”. A comparação precisa resultar em verdadeiro ou falso.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Repetição">
+      <div>
+        <h2>Repetição</h2>
+        <div class="slide-grid">
+          <div class="slide-card">
+            <h3>for</h3>
+            <p>Usamos quando sabemos quantas vezes queremos repetir.</p>
+            <pre><code>for (int i = 0; i < 5; i++) {
+  // repete 5 vezes
+}</code></pre>
+          </div>
+          <div class="slide-card">
+            <h3>while</h3>
+            <p>Usamos quando queremos repetir enquanto algo for verdadeiro.</p>
+            <pre><code>while (sensorPressionado) {
+  // repete enquanto for verdade
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Entrada e saída digital">
+      <div>
+        <h2>Entrada e saída digital</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><h3><code>digitalRead</code></h3><p>Lê um pino digital. Resultado: <code>HIGH</code> ou <code>LOW</code>.</p></div>
+          <div class="slide-card"><h3><code>digitalWrite</code></h3><p>Escreve em um pino digital. Liga ou desliga uma saída.</p></div>
+          <div class="slide-card"><h3><code>HIGH</code></h3><p>Nível alto. Em geral, ligado ou com sinal.</p></div>
+          <div class="slide-card"><h3><code>LOW</code></h3><p>Nível baixo. Em geral, desligado ou sem sinal.</p></div>
+        </div>
+        <p class="small-text">Sensor é entrada. LED é saída.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Montagem do circuito">
+      <div>
+        <h2>Montagem do circuito</h2>
+        <table class="small-text">
+          <thead>
+            <tr><th>Componente</th><th>Pino</th><th>Observação</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>VCC do sensor</td><td>5V</td><td>No ESP32, use 3V3 se o sensor aceitar.</td></tr>
+            <tr><td>GND do sensor</td><td>GND</td><td>Todos os GNDs precisam estar juntos.</td></tr>
+            <tr><td>OUT do sensor</td><td>Digital 2</td><td>Entrada do sistema.</td></tr>
+            <tr><td>LEDs</td><td>4, 5, 6, 7, 8</td><td>Cada LED deve ter resistor.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout danger">
+          <strong>Atenção</strong>
+          Não ligue LED direto no pino sem resistor.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Estratégia de programação">
+      <div>
+        <h2>Estratégia de programação</h2>
+        <ol>
+          <li>Ler o sensor de toque.</li>
+          <li>Se estiver pressionado, esperar um intervalo de tempo.</li>
+          <li>Aumentar o nível de LEDs acesos.</li>
+          <li>Atualizar todos os LEDs com um <code>for</code>.</li>
+          <li>Se soltar, zerar o nível.</li>
+        </ol>
+        <div class="callout key">
+          <strong>Estado</strong>
+          O valor de <code>nivelAtual</code> representa a memória momentânea do sistema.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Código completo">
+      <div>
+        <h2>Código completo</h2>
+        <pre><code>const int pinoSensor = 2;
+const int pinosLeds[] = {4, 5, 6, 7, 8};
+const int quantidadeLeds = 5;
+
+int nivelAtual = 0;
+unsigned long ultimoAvanco = 0;
+const unsigned long intervaloAvanco = 600;
+
+void setup() {
+  pinMode(pinoSensor, INPUT);
+
+  for (int i = 0; i < quantidadeLeds; i++) {
+    pinMode(pinosLeds[i], OUTPUT);
+    digitalWrite(pinosLeds[i], LOW);
+  }
+}
+
+void loop() {
+  int estadoSensor = digitalRead(pinoSensor);
+
+  if (estadoSensor == HIGH) {
+    unsigned long agora = millis();
+
+    if (agora - ultimoAvanco >= intervaloAvanco) {
+      ultimoAvanco = agora;
+
+      if (nivelAtual < quantidadeLeds) {
+        nivelAtual++;
+      }
+    }
+  } else {
+    nivelAtual = 0;
+    ultimoAvanco = millis();
+  }
+
+  for (int i = 0; i < quantidadeLeds; i++) {
+    if (i < nivelAtual) {
+      digitalWrite(pinosLeds[i], HIGH);
+    } else {
+      digitalWrite(pinosLeds[i], LOW);
+    }
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Leitura do código">
+      <div>
+        <h2>Leitura do código</h2>
+        <div class="slide-grid small-text">
+          <div class="slide-card"><h3><code>const int</code></h3><p>Guarda pinos e valores que não mudam durante o programa.</p></div>
+          <div class="slide-card"><h3>Vetor</h3><p><code>pinosLeds[]</code> é uma lista de pinos dos LEDs.</p></div>
+          <div class="slide-card"><h3><code>setup()</code></h3><p>Configura entradas e saídas uma vez.</p></div>
+          <div class="slide-card"><h3><code>loop()</code></h3><p>Repete a leitura, decisão e atualização.</p></div>
+          <div class="slide-card"><h3><code>millis()</code></h3><p>Conta o tempo sem travar o programa com uma pausa longa.</p></div>
+          <div class="slide-card"><h3><code>for</code></h3><p>Percorre todos os LEDs e decide quais ficam acesos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Testes">
+      <div>
+        <h2>Testes</h2>
+        <ul>
+          <li>Sem tocar: todos os LEDs devem ficar apagados.</li>
+          <li>Toque curto: apenas um LED pode acender rapidamente.</li>
+          <li>Toque longo: os LEDs acendem um por um.</li>
+          <li>Toque muito longo: todos os LEDs ficam acesos.</li>
+          <li>Ao soltar: todos apagam.</li>
+        </ul>
+        <div class="callout test">
+          <strong>Teste rápido</strong>
+          Peça que um estudante explique o que mudou em <code>nivelAtual</code> durante o toque.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Depuração">
+      <div>
+        <h2>Depuração: erros comuns</h2>
+        <div class="slide-grid small-text">
+          <div class="slide-card">LED invertido: perna longa e perna curta foram trocadas.</div>
+          <div class="slide-card">Resistor ausente: o LED não está protegido.</div>
+          <div class="slide-card">GND errado: sensor e LEDs não compartilham referência.</div>
+          <div class="slide-card">Pino errado: circuito e código não batem.</div>
+          <div class="slide-card">Sensor alimentado incorretamente: VCC e GND foram trocados.</div>
+          <div class="slide-card">Sensor com lógica invertida: alguns módulos enviam LOW quando são tocados.</div>
+          <div class="slide-card">Placa ou porta errada na IDE Arduino.</div>
+          <div class="slide-card">Ponto e vírgula esquecido no código.</div>
+          <div class="slide-card">Confusão entre intenção humana e instrução exata.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Reflexão">
+      <div>
+        <h2>Reflexão</h2>
+        <ul>
+          <li>Qual foi a entrada do sistema?</li>
+          <li>Qual foi o processamento?</li>
+          <li>Qual foi a saída?</li>
+          <li>Qual variável controlou o nível?</li>
+          <li>Por que usamos repetição?</li>
+          <li>O que aconteceria se tirássemos os resistores?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Fechamento">
+      <div>
+        <h2>Fechamento</h2>
+        <p>Hoje conectamos lógica de programação com eletrônica real.</p>
+        <div class="slide-grid">
+          <div class="slide-card">Variáveis guardam estado.</div>
+          <div class="slide-card">Condições tomam decisões.</div>
+          <div class="slide-card">Laços repetem ações.</div>
+          <div class="slide-card">Resistores protegem LEDs.</div>
+        </div>
+        <div class="callout key">
+          <strong>Desafios de extensão</strong>
+          Mudar a velocidade, adicionar LEDs, apagar um por um ao soltar, adicionar buzzer ou mostrar o nível no Monitor Serial.
+        </div>
+        <p class="small-text">Lembrete: entregar o dever A4 na próxima aula.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

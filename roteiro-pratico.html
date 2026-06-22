@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roteiro Prático - Sensor de Toque e LEDs</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">PBL Sensor de Toque + LEDs</a>
+    <nav class="navlinks" aria-label="Navegação principal">
+      <a href="aula-slides.html">Slides</a>
+      <a href="roteiro-pratico.html">Roteiro prático</a>
+      <a href="dever-a4.html">Dever A4</a>
+      <a href="README.md">README</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="badge">Roteiro do estudante</span>
+        <h1>Montagem e programação: sensor de toque com 5 LEDs</h1>
+        <p>Siga as etapas com calma. O objetivo não é apenas fazer funcionar, mas entender o que cada fio, componente e linha de código faz.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav class="toc" aria-label="Sumário">
+        <a href="#objetivo">Objetivo</a>
+        <a href="#materiais">Materiais</a>
+        <a href="#seguranca">Segurança</a>
+        <a href="#circuito">Circuito</a>
+        <a href="#montagem">Montagem</a>
+        <a href="#codigo">Código</a>
+        <a href="#explicacao">Explicação</a>
+        <a href="#testes">Testes</a>
+        <a href="#problemas">Problemas comuns</a>
+        <a href="#desafios">Desafios</a>
+      </nav>
+
+      <section id="objetivo" class="section">
+        <h2>Objetivo</h2>
+        <div class="callout key">
+          <strong>Missão da aula</strong>
+          Criar um sistema embarcado que lê um sensor de toque e acende 5 LEDs em sequência enquanto o sensor continua pressionado.
+        </div>
+        <p>Neste projeto, o sensor de toque é a <strong>entrada</strong>, o programa no microcontrolador faz o <strong>processamento</strong> e os LEDs são a <strong>saída</strong>.</p>
+      </section>
+
+      <section id="materiais" class="section">
+        <h2>Materiais</h2>
+        <div class="grid">
+          <div class="card"><h3>1 placa Arduino UNO</h3><p>É o microcontrolador principal deste roteiro.</p></div>
+          <div class="card"><h3>1 sensor de toque</h3><p>Use um módulo capacitivo comum, com pinos VCC, GND e OUT ou SIG.</p></div>
+          <div class="card"><h3>5 LEDs</h3><p>Podem ser da mesma cor ou cores diferentes.</p></div>
+          <div class="card"><h3>5 resistores</h3><p>Use 220 ohms ou 330 ohms, um para cada LED.</p></div>
+          <div class="card"><h3>Protoboard</h3><p>Placa de montagem sem solda.</p></div>
+          <div class="card"><h3>Jumpers</h3><p>Fios macho-macho para conectar tudo.</p></div>
+          <div class="card"><h3>Cabo USB</h3><p>Para alimentar e enviar o programa.</p></div>
+          <div class="card"><h3>Computador com IDE Arduino</h3><p>Onde o código será escrito e enviado.</p></div>
+        </div>
+      </section>
+
+      <section id="seguranca" class="section">
+        <h2>Segurança e cuidados</h2>
+        <div class="callout danger">
+          <strong>Atenção</strong>
+          Nunca ligue um LED direto no pino do Arduino sem resistor. O resistor limita a corrente e ajuda a proteger o LED e a placa.
+        </div>
+        <div class="callout warn">
+          <strong>Antes de ligar no USB</strong>
+          Confira se 5V não está conectado direto ao GND. Esse erro pode causar aquecimento e mau funcionamento.
+        </div>
+        <ul>
+          <li>Monte o circuito com a placa desconectada do USB sempre que possível.</li>
+          <li>Confira a posição do LED: a perna longa costuma ser o lado positivo.</li>
+          <li>Todos os componentes precisam compartilhar o mesmo GND.</li>
+          <li>Se algo esquentar, desconecte o USB e chame o professor.</li>
+        </ul>
+      </section>
+
+      <section id="circuito" class="section">
+        <h2>Entendendo o circuito</h2>
+        <p>O sensor de toque envia um sinal digital para o Arduino. O Arduino lê esse sinal no pino 2. Depois, o Arduino liga ou desliga os LEDs usando os pinos 4 a 8.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Pino do microcontrolador</th>
+              <th>Observação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VCC do sensor de toque</td>
+              <td>5V ou 3V3</td>
+              <td>No Arduino UNO, use 5V. No ESP32, prefira 3V3 se o sensor for compatível.</td>
+            </tr>
+            <tr>
+              <td>GND do sensor de toque</td>
+              <td>GND</td>
+              <td>Terra comum do circuito.</td>
+            </tr>
+            <tr>
+              <td>OUT ou SIGNAL do sensor</td>
+              <td>Pino digital 2</td>
+              <td>Entrada digital.</td>
+            </tr>
+            <tr><td>LED 1</td><td>Pino digital 4</td><td>Com resistor.</td></tr>
+            <tr><td>LED 2</td><td>Pino digital 5</td><td>Com resistor.</td></tr>
+            <tr><td>LED 3</td><td>Pino digital 6</td><td>Com resistor.</td></tr>
+            <tr><td>LED 4</td><td>Pino digital 7</td><td>Com resistor.</td></tr>
+            <tr><td>LED 5</td><td>Pino digital 8</td><td>Com resistor.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="diagram" aria-label="Diagrama simplificado do circuito">
+          <div class="circuit-row">
+            <span class="block">5V</span>
+            <span class="wire red"></span>
+            <span class="block sensor">VCC Sensor</span>
+            <span class="wire green"></span>
+            <span class="block">Arduino</span>
+          </div>
+          <div class="circuit-row">
+            <span class="block">GND</span>
+            <span class="wire black"></span>
+            <span class="block sensor">GND Sensor</span>
+            <span class="wire black"></span>
+            <span class="block">GND comum</span>
+          </div>
+          <div class="circuit-row">
+            <span class="block sensor">OUT Sensor</span>
+            <span class="wire green"></span>
+            <span class="block">Pino 2</span>
+            <span class="wire"></span>
+            <span class="block">Programa lê</span>
+          </div>
+          <div class="circuit-row">
+            <span class="block">Pinos 4 a 8</span>
+            <span class="wire"></span>
+            <span class="block">Resistores</span>
+            <span class="wire"></span>
+            <span class="block led">LEDs</span>
+            <span class="wire black"></span>
+            <span class="block">GND</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="montagem" class="section">
+        <h2>Passo a passo da montagem</h2>
+        <div class="steps">
+          <div class="step"><h3>Desconecte o Arduino do USB</h3><p>Faça a montagem sem energia para evitar curtos acidentais.</p></div>
+          <div class="step"><h3>Coloque os 5 LEDs na protoboard</h3><p>Deixe espaço entre eles. A perna longa é o ânodo, lado que receberá o sinal do pino digital através do resistor.</p></div>
+          <div class="step"><h3>Conecte um resistor para cada LED</h3><p>Ligue cada pino digital do Arduino ao resistor e depois ao lado positivo do LED. Cada LED precisa do seu próprio resistor.</p></div>
+          <div class="step"><h3>Ligue o lado negativo dos LEDs ao GND</h3><p>A perna curta do LED deve ir para o trilho de GND da protoboard.</p></div>
+          <div class="step"><h3>Conecte os pinos dos LEDs ao Arduino</h3><p>LED 1 no pino 4, LED 2 no pino 5, LED 3 no pino 6, LED 4 no pino 7 e LED 5 no pino 8.</p></div>
+          <div class="step"><h3>Conecte o sensor de toque</h3><p>VCC no 5V, GND no GND e OUT ou SIG no pino digital 2.</p></div>
+          <div class="step"><h3>Confira o GND comum</h3><p>O GND do sensor e o GND dos LEDs devem estar conectados ao GND do Arduino.</p></div>
+          <div class="step"><h3>Conecte o USB</h3><p>Depois da conferência, conecte o Arduino ao computador.</p></div>
+        </div>
+      </section>
+
+      <section id="codigo" class="section">
+        <h2>Código do projeto</h2>
+        <div class="callout key">
+          <strong>Versão simples para entender a ideia</strong>
+          Esta versão usa <code>delay()</code>. Ela é fácil de entender, mas deixa o programa parado durante a pausa.
+        </div>
+        <pre><code>const int pinoSensor = 2;
+const int pinosLeds[] = {4, 5, 6, 7, 8};
+const int quantidadeLeds = 5;
+
+void setup() {
+  pinMode(pinoSensor, INPUT);
+
+  for (int i = 0; i < quantidadeLeds; i++) {
+    pinMode(pinosLeds[i], OUTPUT);
+  }
+}
+
+void loop() {
+  int estadoSensor = digitalRead(pinoSensor);
+
+  if (estadoSensor == HIGH) {
+    for (int nivel = 1; nivel <= quantidadeLeds; nivel++) {
+      atualizarLeds(nivel);
+      delay(600);
+
+      if (digitalRead(pinoSensor) == LOW) {
+        break;
+      }
+    }
+  } else {
+    atualizarLeds(0);
+  }
+}
+
+void atualizarLeds(int nivel) {
+  for (int i = 0; i < quantidadeLeds; i++) {
+    if (i < nivel) {
+      digitalWrite(pinosLeds[i], HIGH);
+    } else {
+      digitalWrite(pinosLeds[i], LOW);
+    }
+  }
+}</code></pre>
+
+        <div class="callout key">
+          <strong>Versão principal recomendada</strong>
+          Esta versão usa <code>millis()</code> para controlar o tempo sem travar o programa com pausas longas.
+        </div>
+        <pre><code>const int pinoSensor = 2;
+const int pinosLeds[] = {4, 5, 6, 7, 8};
+const int quantidadeLeds = 5;
+
+int nivelAtual = 0;
+unsigned long ultimoAvanco = 0;
+const unsigned long intervaloAvanco = 600;
+
+void setup() {
+  pinMode(pinoSensor, INPUT);
+
+  for (int i = 0; i < quantidadeLeds; i++) {
+    pinMode(pinosLeds[i], OUTPUT);
+    digitalWrite(pinosLeds[i], LOW);
+  }
+}
+
+void loop() {
+  int estadoSensor = digitalRead(pinoSensor);
+
+  if (estadoSensor == HIGH) {
+    unsigned long agora = millis();
+
+    if (agora - ultimoAvanco >= intervaloAvanco) {
+      ultimoAvanco = agora;
+
+      if (nivelAtual < quantidadeLeds) {
+        nivelAtual++;
+      }
+    }
+  } else {
+    nivelAtual = 0;
+    ultimoAvanco = millis();
+  }
+
+  for (int i = 0; i < quantidadeLeds; i++) {
+    if (i < nivelAtual) {
+      digitalWrite(pinosLeds[i], HIGH);
+    } else {
+      digitalWrite(pinosLeds[i], LOW);
+    }
+  }
+}</code></pre>
+      </section>
+
+      <section class="section">
+        <h2>Como enviar o código</h2>
+        <div class="steps">
+          <div class="step"><h3>Abra a IDE Arduino</h3><p>Crie um novo arquivo.</p></div>
+          <div class="step"><h3>Cole a versão principal do código</h3><p>Confira se nada ficou faltando, principalmente chaves, parênteses e ponto e vírgula.</p></div>
+          <div class="step"><h3>Selecione a placa</h3><p>No menu de placas, escolha Arduino UNO. Se estiver usando ESP32, escolha o modelo correto.</p></div>
+          <div class="step"><h3>Selecione a porta</h3><p>Escolha a porta em que a placa apareceu depois de conectar o USB.</p></div>
+          <div class="step"><h3>Clique em verificar</h3><p>Esse botão confere se há erro de escrita no código.</p></div>
+          <div class="step"><h3>Clique em enviar</h3><p>A IDE compila e grava o programa no microcontrolador.</p></div>
+        </div>
+      </section>
+
+      <section id="explicacao" class="section">
+        <h2>Explicação do código por blocos</h2>
+        <div class="card">
+          <h3>Constantes e pinos</h3>
+          <p><code>const int pinoSensor = 2;</code> define que o sensor está no pino digital 2. <code>const</code> indica que esse valor não deve mudar durante o programa.</p>
+          <p><code>pinosLeds[]</code> é uma lista. Uma lista guarda vários valores com o mesmo nome. Aqui, ela guarda os pinos dos 5 LEDs.</p>
+        </div>
+        <div class="card">
+          <h3>Variáveis de estado</h3>
+          <p><code>nivelAtual</code> guarda quantos LEDs devem estar acesos. Isso é o estado do sistema.</p>
+          <p><code>ultimoAvanco</code> guarda o último momento em que o nível aumentou. <code>intervaloAvanco</code> define a velocidade da sequência.</p>
+        </div>
+        <div class="card"><h3><code>setup()</code></h3><p>Essa função roda uma vez quando a placa liga. Ela configura o sensor como entrada e os LEDs como saída.</p></div>
+        <div class="card"><h3><code>loop()</code></h3><p>Essa função repete para sempre. Primeiro ela lê o sensor com <code>digitalRead</code>. Depois usa <code>if</code> para decidir o que fazer.</p></div>
+        <div class="card"><h3>Condição <code>if</code></h3><p>Se o sensor estiver em <code>HIGH</code>, o programa verifica o tempo e pode aumentar <code>nivelAtual</code>. Senão, o nível volta para zero.</p></div>
+        <div class="card"><h3>Laço <code>for</code></h3><p>O <code>for</code> percorre todos os LEDs, do primeiro ao quinto. Para cada LED, o programa decide se ele fica ligado ou desligado.</p></div>
+        <div class="callout warn">
+          <strong>Erro comum de programação</strong>
+          O computador segue instruções exatas. Se o pino no código for 5, mas o fio estiver no pino 6, o programa não “adivinha” o erro.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Conceitos de eletrônica usados</h2>
+        <div class="grid">
+          <div class="card"><h3>Tensão</h3><p>É como pressão. No Arduino UNO, usamos 5V para alimentar o sensor.</p></div>
+          <div class="card"><h3>Corrente</h3><p>É o fluxo de cargas. Se for grande demais, pode danificar componentes.</p></div>
+          <div class="card"><h3>Resistência</h3><p>É a dificuldade para a corrente passar. O resistor aumenta essa dificuldade de forma controlada.</p></div>
+          <div class="card"><h3>GND</h3><p>É a referência comum do circuito. Não é apenas “um fio qualquer”; é a base usada para medir os sinais.</p></div>
+          <div class="card"><h3>VCC</h3><p>É o ponto de alimentação positiva do módulo, como 5V ou 3V3.</p></div>
+          <div class="card"><h3>Sinal</h3><p>É a informação elétrica que representa algo, como sensor pressionado ou solto.</p></div>
+        </div>
+      </section>
+
+      <section id="testes" class="section">
+        <h2>Lista de testes</h2>
+        <table>
+          <thead>
+            <tr><th>Teste</th><th>Resultado esperado</th><th>Conferido?</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sensor solto</td><td>Todos os LEDs apagados.</td><td>___</td></tr>
+            <tr><td>Toque curto</td><td>O primeiro LED acende por pouco tempo.</td><td>___</td></tr>
+            <tr><td>Toque por 2 segundos</td><td>Alguns LEDs acendem em sequência.</td><td>___</td></tr>
+            <tr><td>Toque por tempo longo</td><td>Todos os 5 LEDs acendem.</td><td>___</td></tr>
+            <tr><td>Soltar o sensor</td><td>Todos os LEDs apagam.</td><td>___</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="problemas" class="section">
+        <h2>Lista de problemas comuns</h2>
+        <div class="grid">
+          <div class="card"><h3>Nenhum LED acende</h3><p>Confira GND, pinos, resistores, posição dos LEDs e se o código foi enviado.</p></div>
+          <div class="card"><h3>Um LED não acende</h3><p>Confira se ele está invertido, queimado ou no pino errado.</p></div>
+          <div class="card"><h3>Sensor não responde</h3><p>Confira VCC, GND, OUT e se o sensor realmente trabalha com a tensão usada. Se o comportamento ficar invertido, o módulo pode enviar <code>LOW</code> ao tocar; nesse caso, peça ajuda para inverter a condição no código.</p></div>
+          <div class="card"><h3>LEDs acendem fora de ordem</h3><p>Confira se os fios dos LEDs batem com a lista <code>{4, 5, 6, 7, 8}</code>.</p></div>
+          <div class="card"><h3>Erro na IDE</h3><p>Procure ponto e vírgula faltando, chaves trocadas, placa errada ou porta errada.</p></div>
+          <div class="card"><h3>Confusão com tensão e corrente</h3><p>Tensão empurra. Corrente flui. Resistência limita o fluxo.</p></div>
+        </div>
+      </section>
+
+      <section id="desafios" class="section">
+        <h2>Desafios de extensão</h2>
+        <ol>
+          <li>Mude <code>intervaloAvanco</code> para deixar a sequência mais rápida ou mais lenta.</li>
+          <li>Adicione mais LEDs e atualize a lista de pinos.</li>
+          <li>Faça os LEDs apagarem um por um quando o sensor for solto.</li>
+          <li>Adicione um buzzer que toque quando todos os LEDs estiverem acesos.</li>
+          <li>Transforme o projeto em uma “barra de volume” controlada por toque.</li>
+          <li>Use o Monitor Serial para imprimir o valor de <code>nivelAtual</code>.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Adaptação para ESP32</h2>
+        <div class="callout warn">
+          <strong>Atenção</strong>
+          O ESP32 trabalha com lógica de 3,3V. Não coloque 5V em um pino de entrada do ESP32.
+        </div>
+        <p>Para ESP32, escolha pinos digitais disponíveis na sua placa e alimente o sensor em 3V3 se ele aceitar essa tensão. Depois, altere no código os números dos pinos do sensor e dos LEDs.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Roteiro prático para aula PBL de sistemas embarcados com sensor de toque e LEDs sequenciais.
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

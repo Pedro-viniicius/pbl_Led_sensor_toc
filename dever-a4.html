@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dever A4 - Sensor de Toque e LEDs</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="homework-page">
+  <header class="topbar">
+    <a class="brand" href="index.html">PBL Sensor de Toque + LEDs</a>
+    <nav class="navlinks" aria-label="Navegação principal">
+      <a href="aula-slides.html">Slides</a>
+      <a href="roteiro-pratico.html">Roteiro prático</a>
+      <a href="dever-a4.html">Dever A4</a>
+      <a href="README.md">README</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="print-actions">
+      <button class="button primary" type="button" data-print>Imprimir ou salvar em PDF</button>
+    </div>
+
+    <section class="a4">
+      <h1>Dever de casa: sensor de toque e LEDs sequenciais</h1>
+      <p><strong>Nome:</strong> ____________________________________ <strong>Turma:</strong> __________ <strong>Data:</strong> ____/____/______</p>
+      <p>Responda com frases curtas. O objetivo é revisar os conceitos mais importantes da aula.</p>
+
+      <h2>1. Lógica de programação</h2>
+      <ol>
+        <li>Marque a alternativa correta. Uma variável é:
+          <br>☐ Um fio do circuito. ☐ Uma caixa com nome que guarda um valor. ☐ Um tipo de LED.
+        </li>
+        <li>Complete: um programa é como uma ____________________ com instruções em ordem.</li>
+        <li>Verdadeiro ou falso:
+          <br>☐ O <code>if</code> serve para tomar uma decisão.
+          <br>☐ O computador entende nossa intenção mesmo quando o código está errado.
+        </li>
+        <li>Explique com suas palavras: para que serve o <code>for</code>?</li>
+        <li>Explique com suas palavras: para que serve o <code>while</code>?</li>
+        <li>No projeto, identifique:
+          <br><strong>Entrada:</strong> ____________________
+          <br><strong>Processamento:</strong> ____________________
+          <br><strong>Saída:</strong> ____________________
+        </li>
+      </ol>
+
+      <h2>2. Eletrônica</h2>
+      <ol start="7">
+        <li>Associe:
+          <br>(A) Tensão &nbsp;&nbsp; (B) Corrente &nbsp;&nbsp; (C) Resistência
+          <br>___ Fluxo de cargas elétricas.
+          <br>___ Dificuldade para a corrente passar.
+          <br>___ Diferença de potencial que ajuda a empurrar a corrente.
+        </li>
+        <li>Por que o LED precisa de resistor?</li>
+        <li>Complete: GND é a ____________________ comum do circuito.</li>
+        <li>Complete: VCC é o ponto de ____________________ do módulo.</li>
+      </ol>
+
+      <h2>3. Analogia da água</h2>
+      <ol start="11">
+        <li>Na analogia da água, tensão parece com:
+          <br>☐ Pressão. ☐ Cor do fio. ☐ Tamanho do LED.
+        </li>
+        <li>Na analogia da água, corrente parece com:
+          <br>☐ Fluxo de água. ☐ Etiqueta da variável. ☐ Porta USB.
+        </li>
+        <li>Se a resistência aumenta, o fluxo de corrente tende a:
+          <br>☐ Aumentar muito. ☐ Diminuir. ☐ Virar código.
+        </li>
+      </ol>
+
+      <h2>4. Entendimento do projeto</h2>
+      <ol start="14">
+        <li>No projeto, o sensor de toque informa ao Arduino que alguém ____________________.</li>
+        <li>Os LEDs são a saída porque mostram uma ____________________ visível.</li>
+        <li>Qual variável controla quantos LEDs ficam acesos? ____________________</li>
+        <li>O que acontece quando o sensor fica pressionado por mais tempo?</li>
+        <li>Escreva um pequeno algoritmo em português para o projeto:
+          <br>1. Ler ____________________.
+          <br>2. Se estiver pressionado, ____________________.
+          <br>3. Atualizar ____________________.
+          <br>4. Se soltar, ____________________.
+        </li>
+      </ol>
+    </section>
+
+    <section class="a4">
+      <h1>Verso: revisão curta</h1>
+      <h2>5. Erros comuns</h2>
+      <ol start="19">
+        <li>Marque dois erros que podem fazer um LED não acender:
+          <br>☐ LED invertido. ☐ Resistor ligado corretamente. ☐ Pino errado no código. ☐ Nome bonito da variável.
+        </li>
+        <li>Explique por que o GND do sensor e o GND dos LEDs precisam estar conectados ao GND do Arduino.</li>
+        <li>Qual linha lê o sensor?
+          <br>☐ <code>digitalWrite(pino, HIGH);</code>
+          <br>☐ <code>digitalRead(pinoSensor);</code>
+          <br>☐ <code>pinMode(pino, OUTPUT);</code>
+        </li>
+        <li>Qual linha liga um LED?
+          <br>☐ <code>digitalWrite(pinoLed, HIGH);</code>
+          <br>☐ <code>digitalRead(pinoLed);</code>
+          <br>☐ <code>int pino = LED;</code>
+        </li>
+      </ol>
+
+      <h2>6. Resposta aberta final</h2>
+      <p>Explique em 3 a 5 linhas como o sistema transforma um toque em LEDs acesos.</p>
+      <p>________________________________________________________________________________</p>
+      <p>________________________________________________________________________________</p>
+      <p>________________________________________________________________________________</p>
+      <p>________________________________________________________________________________</p>
+
+      <div class="answer-key">
+        <h2>Gabarito para o professor</h2>
+        <p><strong>Remova esta parte antes de imprimir para os estudantes, se desejar.</strong></p>
+        <ol>
+          <li>Uma caixa com nome que guarda um valor.</li>
+          <li>Receita.</li>
+          <li>Verdadeiro; falso.</li>
+          <li>Repetir uma quantidade conhecida de vezes.</li>
+          <li>Repetir enquanto uma condição for verdadeira.</li>
+          <li>Entrada: sensor de toque. Processamento: código no Arduino. Saída: LEDs.</li>
+          <li>B, C, A.</li>
+          <li>Para limitar a corrente e proteger o LED e a placa.</li>
+          <li>Referência.</li>
+          <li>Alimentação.</li>
+          <li>Pressão.</li>
+          <li>Fluxo de água.</li>
+          <li>Diminuir.</li>
+          <li>Tocou no sensor.</li>
+          <li>Ação ou indicação.</li>
+          <li><code>nivelAtual</code>.</li>
+          <li>Mais LEDs acendem em sequência até todos ficarem acesos.</li>
+          <li>Ler o sensor; aumentar o nível; atualizar os LEDs; zerar ou apagar os LEDs.</li>
+          <li>LED invertido e pino errado no código.</li>
+          <li>Porque todos precisam da mesma referência elétrica para os sinais fazerem sentido.</li>
+          <li><code>digitalRead(pinoSensor);</code></li>
+          <li><code>digitalWrite(pinoLed, HIGH);</code></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

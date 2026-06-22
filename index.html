@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PBL Sensor de Toque e LEDs Sequenciais</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">PBL Sensor de Toque + LEDs</a>
+    <nav class="navlinks" aria-label="Navegação principal">
+      <a href="aula-slides.html">Slides</a>
+      <a href="roteiro-pratico.html">Roteiro prático</a>
+      <a href="dever-a4.html">Dever A4</a>
+      <a href="README.md">README</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="badge">Aula PBL de sistemas embarcados</span>
+        <h1>Sensor de toque controlando LEDs em sequência</h1>
+        <p>Pacote completo para uma aula prática em que o estudante monta um circuito, programa um microcontrolador e entende entrada, processamento, saída, variáveis, condições, repetição e conceitos básicos de eletrônica.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="aula-slides.html">Abrir slides da aula</a>
+          <a class="button" href="roteiro-pratico.html">Abrir roteiro do aluno</a>
+          <a class="button" href="dever-a4.html">Imprimir dever</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="section">
+        <h2>Materiais do pacote</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Slides da aula</h3>
+            <p>Apresentação HTML com controles por teclado, conteúdo conceitual, perguntas para discussão, algoritmo e solução completa.</p>
+            <a href="aula-slides.html">Usar em sala</a>
+          </article>
+          <article class="card">
+            <h3>Roteiro prático</h3>
+            <p>Guia passo a passo para montagem, programação, testes, diagnóstico de erros e desafios de extensão.</p>
+            <a href="roteiro-pratico.html">Entregar aos estudantes</a>
+          </article>
+          <article class="card">
+            <h3>Dever A4</h3>
+            <p>Atividade curta para impressão, com questões de lógica, eletrônica, analogia da água e entendimento do projeto.</p>
+            <a href="dever-a4.html">Abrir versão imprimível</a>
+          </article>
+          <article class="card">
+            <h3>README</h3>
+            <p>Instruções para abrir localmente, organizar os arquivos e publicar no GitHub Pages.</p>
+            <a href="README.md">Ler instruções</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Resumo do projeto</h2>
+        <div class="callout key">
+          <strong>Desafio central</strong>
+          Quando o sensor de toque é pressionado, um LED acende. Se o toque continua, novos LEDs acendem um por um, como uma barra de nível controlada pelo tempo de toque.
+        </div>
+        <div class="diagram" aria-label="Resumo visual do sistema">
+          <div class="circuit-row">
+            <span class="block sensor">Sensor de toque</span>
+            <span class="wire green"></span>
+            <span class="block">Arduino UNO</span>
+            <span class="wire"></span>
+            <span class="block led">LED 1</span>
+            <span class="block led">LED 2</span>
+            <span class="block led">LED 3</span>
+            <span class="block led">LED 4</span>
+            <span class="block led">LED 5</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Assumimos nesta versão</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Placa principal</h3>
+            <p>Arduino UNO, usando programação em estilo Arduino C/C++.</p>
+            <p class="mini">O roteiro também explica como adaptar para ESP32.</p>
+          </div>
+          <div class="card">
+            <h3>Quantidade de LEDs</h3>
+            <p>5 LEDs, cada um com resistor individual entre 220 ohms e 330 ohms.</p>
+          </div>
+          <div class="card">
+            <h3>Pinos usados</h3>
+            <p>Sensor no pino digital 2. LEDs nos pinos digitais 4, 5, 6, 7 e 8.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Fluxo sugerido da aula</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tempo</th>
+              <th>Etapa</th>
+              <th>Ação do professor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10 min</td>
+              <td>Situação-problema</td>
+              <td>Mostrar exemplos reais de sistemas embarcados e apresentar o desafio.</td>
+            </tr>
+            <tr>
+              <td>20 min</td>
+              <td>Conceitos essenciais</td>
+              <td>Revisar entrada, saída, variável, condição, repetição, tensão, corrente e resistência.</td>
+            </tr>
+            <tr>
+              <td>30 a 45 min</td>
+              <td>Montagem e programação</td>
+              <td>Guiar a montagem em duplas, pausar para testes curtos e corrigir erros comuns.</td>
+            </tr>
+            <tr>
+              <td>20 min</td>
+              <td>Teste e depuração</td>
+              <td>Pedir que os estudantes expliquem o que acontece quando o sensor fica pressionado.</td>
+            </tr>
+            <tr>
+              <td>10 a 20 min</td>
+              <td>Reflexão e extensão</td>
+              <td>Conectar o projeto com algoritmo, estado, tempo e possíveis melhorias.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Perguntas rápidas para verificar entendimento</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Entrada</h3>
+            <p>Qual componente informa ao microcontrolador que alguém tocou no circuito?</p>
+          </div>
+          <div class="card">
+            <h3>Processamento</h3>
+            <p>Qual variável guarda quantos LEDs devem ficar acesos?</p>
+          </div>
+          <div class="card">
+            <h3>Saída</h3>
+            <p>Qual ação visível o microcontrolador executa no mundo físico?</p>
+          </div>
+          <div class="card">
+            <h3>Eletrônica</h3>
+            <p>Por que cada LED precisa de um resistor?</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Material criado para aula PBL de robótica e sistemas embarcados. Funciona abrindo o arquivo index.html no navegador.
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
